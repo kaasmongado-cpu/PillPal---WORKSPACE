@@ -1,68 +1,32 @@
-# PillPal Development Workspace
+# React + TypeScript + Vite
 
-This is a monorepo powered by [Turborepo](https://turbo.build/repo/docs) and managed with **npm workspaces**. 
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## What's inside?
+Currently, two official plugins are available:
 
-This repository contains the following applications and packages:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-### Apps
-- `admin-web`: A Vite + React Single Page Application for administrators.
-- `patient-web`: A Vite + React Single Page Application for patients.
+## React Compiler
 
-### Packages
-- `@repo/ui`: A stub React component library shared across applications.
-- `@repo/eslint-config`: Shared `eslint` configurations.
-- `@repo/typescript-config`: Shared `tsconfig.json` configurations.
-- `database`: Prisma database configuration.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-All apps and packages are written in [TypeScript](https://www.typescriptlang.org/).
+## Expanding the Oxlint configuration
 
-## Getting Started
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
 
-To install dependencies for all apps and packages, run the following from the root:
-
-```sh
-npm install
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
 ```
 
-## Running Tasks
-
-This project uses Turborepo to efficiently run tasks in parallel.
-
-### Develop
-
-To start the development server for all applications simultaneously:
-
-```sh
-npm run dev
-```
-
-You can also run a specific app's dev server by using a filter:
-
-```sh
-npx turbo run dev --filter=admin-web
-```
-
-### Build
-
-To build all apps and packages:
-
-```sh
-npm run build
-```
-
-To build a specific app:
-
-```sh
-npx turbo run build --filter=patient-web
-```
-
-### Linting and Type Checking
-
-To lint all packages and check TypeScript types:
-
-```sh
-npm run lint
-npm run check-types
-```
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
